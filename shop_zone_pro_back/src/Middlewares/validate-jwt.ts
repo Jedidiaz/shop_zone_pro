@@ -2,7 +2,7 @@ import fs from "fs";
 import Config from "../Config";
 import { Request, Response } from "express";
 import { VerifyErrors, verify } from "jsonwebtoken";
-import { UserModel } from "../Models";
+import { UserModel } from "../models";
 
 const validateJWT = async (req: Request, res: Response, next: () => void) => {
   const token = req.headers["access-token"] || "";

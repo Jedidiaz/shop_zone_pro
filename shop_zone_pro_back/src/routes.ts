@@ -3,4 +3,6 @@ interface IPaths {
   router: string;
 }
 
-export const RESTPATHS: IPaths[] = [];
+export const RESTPATHS: IPaths[] = [
+  { url: "users", router: "users" },
+];

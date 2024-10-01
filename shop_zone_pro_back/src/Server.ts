@@ -13,7 +13,7 @@ import morgan from "morgan";
 import { FilesController } from "./utils";
 import generateKeys from "./utils/KeyFiles";
 import { RESTPATHS } from "./routes";
-import db from "./Db/connetcion";
+import db from "./db/connetcion";
 
 class Server {
   private app: Application;

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../Db/connetcion";
+import db from "../db/connetcion";
 import Categories from "./categories.model";
 
 const Products = db.define(
