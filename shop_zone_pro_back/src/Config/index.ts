@@ -24,7 +24,7 @@ const Config = {
   // keyMail: process.env.KEY_MAIL,
 
   //CERTIFICADOS
-  urlCertificado: process.env.URL_CERTIFICADO,
+  urlCertificado: process.env.URL_CERTIFICATE,
 
   //FIREBASE
   clientEmailFB: process.env.CLIENT_EMAIL_FB,

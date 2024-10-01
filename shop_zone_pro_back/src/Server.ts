@@ -1,12 +1,8 @@
-import fs from 'node:fs';
+import fs from "node:fs";
 import {
   Server as ServerHttp,
   createServer as createServerHttp,
 } from "node:http";
-import {
-  Server as ServerHttps,
-  createServer as createServerHttps,
-} from "node:https";
 
 import express, { Application } from "express";
 import Config from "./Config";
@@ -17,11 +13,12 @@ import morgan from "morgan";
 import { FilesController } from "./utils";
 import generateKeys from "./utils/KeyFiles";
 import { RESTPATHS } from "./routes";
+import db from "./Db/connetcion";
 
 class Server {
   private app: Application;
   private port: string | number;
-  private server: ServerHttp | ServerHttps;
+  private server: ServerHttp;
 
   constructor() {
     this.app = express();
@@ -29,11 +26,9 @@ class Server {
 
     this.middleware();
     this.routes();
-    // this.dbConnection();
+    this.dbConnection();
 
-    this.server = Config.dev
-      ? createServerHttp(this.app)
-      : createServerHttps(this.app);
+    this.server = createServerHttp(this.app)
   }
 
   private middleware() {
@@ -54,7 +49,7 @@ class Server {
     );
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(compression());
-    //morgan logs 
+    //morgan logs
     this.app.use(morgan("dev"));
     // keysFiles
     generateKeys();
@@ -81,6 +76,19 @@ class Server {
     });
 
     this.app.use("*", express.static("public/"));
+  }
+
+  private async dbConnection() {
+    try {
+      if (Config.dev) {
+        await db.sync();
+        return;
+      }
+      await db.authenticate();
+      console.log("Database online");
+    } catch (error) {
+      throw new Error(error as string);
+    }
   }
 
   listen() {
