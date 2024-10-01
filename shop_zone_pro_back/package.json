@@ -1,0 +1,25 @@
+{
+  "name": "shop_zone_pro_back",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --env-file=.env app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mariadb": "^3.3.2",
+    "mysql2": "^3.11.3",
+    "nodemon": "^3.1.7",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0"
+  }
+}

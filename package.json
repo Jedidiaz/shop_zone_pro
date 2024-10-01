@@ -7,5 +7,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "workspaces": [
+    "shop_zone_pro_front",
+    "shop_zone_pro_back"
+  ]
 }
