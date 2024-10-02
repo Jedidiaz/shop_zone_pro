@@ -1,7 +1,6 @@
 "use client";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import React from "react";
-import { useRouter } from "next/navigation";
 import Input from "@/components/forms/Input";
 import colors from "@/resources/colors";
 import Link from "next/link";
@@ -45,7 +44,7 @@ const SingUp = (): JSX.Element => {
           </Typography>
           <Stack component="ul" gap={1} px={2}>
             {passwordFormat.map((format, index) => (
-              <Typography component="li" variant="caption">
+              <Typography component="li" key={index} variant="caption">
                 {format}
               </Typography>
             ))}

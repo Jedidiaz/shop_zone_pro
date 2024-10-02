@@ -45,7 +45,9 @@ import {
       if (inputRef.current) {
         try {
           inputRef.current?.showPicker();
-        } catch (__) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
   

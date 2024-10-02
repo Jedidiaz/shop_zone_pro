@@ -11,7 +11,7 @@ const initialState: State = {
 
 const storeAPI: StateCreator<State & Action, [["zustand/devtools", never]]> = (
   set,
-  get
+  _
 ) => ({
   ...initialState,
   signIn: (data: SignInProps) => set(() => data, false, "signIn"),

@@ -3,7 +3,6 @@ import { Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import Input from "@/components/forms/Input";
 import colors from "@/resources/colors";
-import Link from "next/link";
 import { LoadingButton } from "@mui/lab";
 import MailRoundedIcon from "@mui/icons-material/MailRounded";
 
