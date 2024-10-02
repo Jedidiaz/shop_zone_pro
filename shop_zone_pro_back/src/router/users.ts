@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { UserController } from "../controllers";
 import { check } from "express-validator";
-import {ValidatorsHelpers} from "../helpers";
+import { ValidatorsHelpers } from "../helpers";
 import middlewars from "../middlewares";
 
 const router = Router();
-const { signUp } = UserController;
+const { signUp, signIn } = UserController;
 // const { existUserByEmail } = ValidatorsHelpers;
 const { validatePasswordFormat, validateFields } = middlewars;
 const { existUserByEmail } = ValidatorsHelpers;
@@ -34,7 +34,7 @@ router.post(
     check("password", "La contraseña es obligatorio").notEmpty(),
     validateFields,
   ],
-  signUp
+  signIn
 );
 
 module.exports = router;

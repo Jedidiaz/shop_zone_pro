@@ -9,3 +9,4 @@ export interface IUser {
 }
 
 export type IUserSignUp = Omit<IUser, "id" | "status" | "createdAt">
+export type IUserSignIn = Omit<IUser, "id" | "status" | "createdAt" | "name">
