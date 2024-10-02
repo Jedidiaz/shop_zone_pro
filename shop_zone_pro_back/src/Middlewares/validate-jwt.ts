@@ -39,7 +39,7 @@ const validateToken = async (token: string) => {
     return new Promise((resolve, reject) => {
       const publicKey = fs.readFileSync(
         Config.publicKey,
-        "utf8" || "PUBLIC.pem"
+        "utf8" /*|| "PUBLIC.pem"*/
       );
       verify(
         token,
