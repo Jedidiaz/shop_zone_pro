@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../db/connetcion";
+import db from "../db/connection";
 import ProductCategory from "./product_category.model";
 
 const Categories = db.define(
@@ -24,6 +24,9 @@ const Categories = db.define(
   { updatedAt: false }
 );
 
-Categories.belongsTo(ProductCategory, {foreignKey: "category_id", as: "categories_products"});
+Categories.hasMany(ProductCategory, {
+  as: "categories_products",
+  foreignKey: "category_id",
+});
 
 export default Categories;

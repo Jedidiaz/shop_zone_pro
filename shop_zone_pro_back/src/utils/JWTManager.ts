@@ -3,8 +3,8 @@ import Config from "../Config";
 import jwt from "jsonwebtoken";
 
 export const createToken = (
-  data: { id: number},
-  expiresIn?: string
+  data: { id: number, code?: string},
+  expiresIn?: string | number
 ) => {
   const privateKey = fs.readFileSync(Config.privateKey || "PRIVATE.pem");
   if (expiresIn) {

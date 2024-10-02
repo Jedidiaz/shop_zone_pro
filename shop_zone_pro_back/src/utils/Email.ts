@@ -19,14 +19,14 @@ const createEmail = async <A extends object>(
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     fs.readFile(
-      path.resolve(__dirname, `../assets/emails/${file}/index.html`),
+      path.resolve(__dirname, `../assets/emails/${file}`),
       { encoding: "utf-8" },
       function (err, html) {
         if (err) {
           return reject(err);
         } else {
           const template = handlebars.compile(html);
-          const htmlToSend = template({ info });
+          const htmlToSend = template({ ...info });
           return resolve(htmlToSend);
         }
       }

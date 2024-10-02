@@ -13,7 +13,7 @@ import morgan from "morgan";
 import { FilesController } from "./utils";
 import generateKeys from "./utils/KeyFiles";
 import { RESTPATHS } from "./routes";
-import db from "./db/connetcion";
+import db from "./db/connection";
 
 class Server {
   private app: Application;
@@ -41,13 +41,13 @@ class Server {
     );
 
     // Lectura y parseo del body
-    this.app.use(express.json());
+    this.app.use(express.json({limit: '100mb'}));
     this.app.use(
       bodyParser.json({
-        limit: "10mb",
+        limit: "100mb",
       })
     );
-    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(bodyParser.urlencoded({limit: '100mb', extended: true }));
     this.app.use(compression());
     //morgan logs
     this.app.use(morgan("dev"));

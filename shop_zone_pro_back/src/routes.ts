@@ -5,4 +5,6 @@ interface IPaths {
 
 export const RESTPATHS: IPaths[] = [
   { url: "users", router: "users" },
+  { url: "categories", router: "categories" },
+  { url: "products", router: "products" },
 ];

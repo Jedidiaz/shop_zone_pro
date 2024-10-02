@@ -1,31 +1,23 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Users from "./users.model";
 
-const Users = db.define(
-  "users",
+const RecoverPasswordCodes = db.define(
+  "recover_password_codes",
   {
     id: {
       type: DataTypes.BIGINT,
+      primaryKey: true,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true,
     },
-    name: {
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    code: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role: {
-      type: DataTypes.ENUM("user", "admin"),
-      allowNull: false,
-      defaultValue: "user",
     },
     status: {
       type: DataTypes.BOOLEAN,
@@ -33,7 +25,14 @@ const Users = db.define(
       defaultValue: true,
     },
   },
-  { updatedAt: false }
+  {
+    updatedAt: false,
+  }
 );
 
-export default Users;
+RecoverPasswordCodes.belongsTo(Users, {
+  foreignKey: "user_id",
+  as: "password_code_user",
+});
+
+export default RecoverPasswordCodes;
