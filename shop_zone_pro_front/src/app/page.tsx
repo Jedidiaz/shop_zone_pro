@@ -1,9 +1,8 @@
-import { Button, TextField } from "@mui/material";
+import SignIn from "@/views/auth/signin";
 
 export default function Home() {
+
   return (
-    <div>
-      sdsd
-    </div>
+    <SignIn />
   );
 }
