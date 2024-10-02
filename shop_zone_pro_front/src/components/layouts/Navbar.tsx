@@ -1,12 +1,24 @@
 "use client";
 import colors from "@/resources/colors";
-import { Container, InputAdornment, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  InputAdornment,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import logo from "@/assets/shopZoneLogo.png";
 import Input from "../forms/Input";
 import SearchIcon from "@mui/icons-material/Search";
+import { useUserStore } from "@/stores/user/user.store";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import { useRouter } from "next/navigation";
 
 const links = [
   { path: "/", name: "Home" },
@@ -15,6 +27,21 @@ const links = [
 ];
 
 const Navbar = (): JSX.Element => {
+  const { user, logOut } = useUserStore((state) => state);
+  const [settings, setSettings] = useState<HTMLElement | null>(null);
+  const router = useRouter();
+  const handleOpenSettings = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setSettings(event.currentTarget);
+  };
+
+  const handleCloseSettings = () => setSettings(null);
+
+  const handleLogOut = () => {
+    logOut();
+    setSettings(null);
+    router.replace("/");
+  };
+
   return (
     <Stack component="header" mb={2}>
       <Stack
@@ -30,15 +57,40 @@ const Navbar = (): JSX.Element => {
           sx={{ color: colors.textLight }}
         >
           <Typography>Envíos a todo el pais</Typography>
-          <Stack component="ul" direction="row" gap={1}>
-            <Typography component={Link} href="/" color="inherit">
-              Iniciar sesión
-            </Typography>
-            <Typography component="span">/</Typography>
-            <Typography component={Link} href="/signup" color="inherit">
-              Registrate
-            </Typography>
-          </Stack>
+          {!user?.name ? (
+            <Stack component="ul" direction="row" gap={1}>
+              <Typography component={Link} href="/" color="inherit">
+                Iniciar sesión
+              </Typography>
+              <Typography component="span">/</Typography>
+              <Typography component={Link} href="/signup" color="inherit">
+                Registrate
+              </Typography>
+            </Stack>
+          ) : (
+            <>
+              <Button
+                variant="text"
+                size="small"
+                sx={{ p: 0 }}
+                endIcon={<ExpandMoreRoundedIcon />}
+                onClick={handleOpenSettings}
+              >
+                <Typography variant="body2">{user.name}</Typography>
+              </Button>
+              <Menu
+                open={!!settings}
+                onClose={handleCloseSettings}
+                anchorEl={settings}
+              >
+                <MenuItem onClick={handleLogOut}>
+                  <ListItemText sx={{ color: "red" }}>
+                    Cerrar sesión
+                  </ListItemText>
+                </MenuItem>
+              </Menu>
+            </>
+          )}
         </Stack>
       </Stack>
       <Container component="main">

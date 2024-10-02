@@ -6,6 +6,7 @@ import colors from "@/resources/colors";
 import Link from "next/link";
 import Face5Icon from "@mui/icons-material/Face5";
 import { LoadingButton } from "@mui/lab";
+import useRegister from "./useRegister";
 
 const passwordFormat = [
   "Minimo 8 caracteres",
@@ -14,6 +15,15 @@ const passwordFormat = [
 ];
 
 const SingUp = (): JSX.Element => {
+  const {
+    handleChange,
+    handleSubmit,
+    email,
+    password,
+    name,
+    confirm_password,
+    loadingApi,
+  } = useRegister();
   return (
     <Container component="main">
       <Stack
@@ -25,13 +35,36 @@ const SingUp = (): JSX.Element => {
         justifyContent="center"
         height="calc(100dvh - 200px)"
         pb={4}
+        onSubmit={handleSubmit}
       >
         <Typography variant="h3" fontWeight={600} mb={1}>
           Registrate: ¡Unete a nosotros!
         </Typography>
-        <Input label="Nombre" name="name" type="text" />
-        <Input label="Email" name="email" type="email" />
-        <Input label="Contraseña" name="password" type="password" Icon />
+        <Input
+          label="Nombre"
+          name="name"
+          type="text"
+          required
+          onChange={handleChange}
+          value={name}
+        />
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          required
+          onChange={handleChange}
+          value={email}
+        />
+        <Input
+          label="Contraseña"
+          name="password"
+          type="password"
+          Icon
+          required
+          onChange={handleChange}
+          value={password}
+        />
         <Stack
           bgcolor={colors.borderColor}
           p={2}
@@ -55,6 +88,9 @@ const SingUp = (): JSX.Element => {
           name="confirm_password"
           type="password"
           Icon
+          required
+          onChange={handleChange}
+          value={confirm_password}
         />
         <LoadingButton
           variant="contained"
@@ -62,10 +98,11 @@ const SingUp = (): JSX.Element => {
           sx={{ mt: 3 }}
           loadingPosition="start"
           type="submit"
+          loading={loadingApi.includes("POST__users/signup")}
         >
           Iniciar sesión
         </LoadingButton>
-        <Stack gap={1} direction="row" mt={2} justifyContent="flex-end" >
+        <Stack gap={1} direction="row" mt={2} justifyContent="flex-end">
           <Typography variant="body1">¿Ya tienes cuenta?</Typography>
           <Typography
             component={Link}

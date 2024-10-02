@@ -1,4 +1,3 @@
-
 export interface IUser {
   id: number;
   name: string;
@@ -15,7 +14,7 @@ export interface State {
 }
 
 export interface SignInProps {
-  user: IUser,
+  user: IUser;
   token: string;
 }
 
@@ -23,3 +22,15 @@ export interface Action {
   signIn: (props: SignInProps) => void;
   logOut: () => void;
 }
+
+export type IUserFormSignUp = Omit<
+  IUser,
+  "id" | "role" | "status" | "createdAt"
+> & {
+  confirm_password: string;
+};
+
+export type IUserFormSignIn = Omit<
+  IUser,
+  "id" | "role" | "status" | "createdAt" | "name"
+>;

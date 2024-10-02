@@ -6,8 +6,10 @@ import colors from "@/resources/colors";
 import Link from "next/link";
 import Face5Icon from "@mui/icons-material/Face5";
 import { LoadingButton } from "@mui/lab";
+import useLogin from "./useLogin";
 
 const SignIn = (): JSX.Element => {
+  const { handleChange, handleSubmit, email, password } = useLogin();
   return (
     <Container component="main">
       <Stack
@@ -19,12 +21,28 @@ const SignIn = (): JSX.Element => {
         justifyContent="center"
         height="calc(100dvh - 200px)"
         pb={4}
+        onSubmit={handleSubmit}
       >
         <Typography variant="h3" fontWeight={600} mb={1}>
           Inicio de sesión: ¡Accede ahora!
         </Typography>
-        <Input label="Email" name="email" type="email" />
-        <Input label="Contraseña" name="password" type="password" Icon />
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          required
+          onChange={handleChange}
+          value={email}
+        />
+        <Input
+          label="Contraseña"
+          name="password"
+          type="password"
+          Icon
+          required
+          onChange={handleChange}
+          value={password}
+        />
         <Stack gap={1} justifyContent="space-between" direction="row">
           <Typography variant="body1">¿Olvidaste tu contraseña?</Typography>
           <Typography
