@@ -1,45 +1,54 @@
 "use client";
-import { Button } from "@mui/material";
+import { Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
-import { useUserStore } from "@/stores/user/user.store";
 import { useRouter } from "next/navigation";
+import Input from "@/components/forms/Input";
+import colors from "@/resources/colors";
+import Link from "next/link";
+import Face5Icon from "@mui/icons-material/Face5";
+import { LoadingButton } from "@mui/lab";
 
 const SignIn = (): JSX.Element => {
-  const user = useUserStore((state) => (state.user));
-  const router = useRouter()
-  const signIn = useUserStore((state) => state.signIn);
-  const handleClick = () => {
-    signIn({
-      token: "1123",
-      user: {
-        id: 1,
-        email: "user@example.com",
-        name: "user",
-        status: true,
-        role: "admin",
-      },
-    });
-  };
-  const handleClickUser = () => {
-    signIn({
-      token: "1123",
-      user: {
-        id: 1,
-        email: "user@example.com",
-        name: "user",
-        status: true,
-        role: "user",
-      },
-    });
-  };
   return (
-    <div>
-      sdsd
-      <Button onClick={handleClick}>Click admin</Button>
-      <Button onClick={handleClickUser}>Click user</Button>
-      <Button onClick={()=> router.push("/admin/products") }>navigate</Button>
-      <h1>{JSON.stringify(user)}</h1>
-    </div>
+    <Container component="main">
+      <Stack
+        ml={{ xs: 0, md: 6 }}
+        component="form"
+        role="form"
+        gap={2}
+        maxWidth={400}
+        justifyContent="center"
+        height="calc(100dvh - 200px)"
+        pb={4}
+      >
+        <Typography variant="h3" fontWeight={600} mb={1}>
+          Inicio de sesión: ¡Accede ahora!
+        </Typography>
+        <Input label="Email" name="email" type="email" />
+        <Input label="Contraseña" name="password" type="password" Icon />
+        <Stack gap={1} justifyContent="space-between" direction="row">
+          <Typography variant="body1">¿Olvidaste tu contraseña?</Typography>
+          <Typography
+            component={Link}
+            href="/recover-password"
+            variant="body1"
+            color={colors.primary}
+            sx={{ textDecoration: "none" }}
+          >
+            Recuperala aquí
+          </Typography>
+        </Stack>
+        <LoadingButton
+          variant="contained"
+          startIcon={<Face5Icon />}
+          sx={{ mt: 3 }}
+          loadingPosition="start"
+          type="submit"
+        >
+          Iniciar sesión
+        </LoadingButton>
+      </Stack>
+    </Container>
   );
 };
 

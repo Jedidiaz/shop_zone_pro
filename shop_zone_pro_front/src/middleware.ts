@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export const middleware = (request: NextRequest) => {
   const response = request.cookies.get("userSession")?.value;
 
   if (!response) {
@@ -29,4 +29,4 @@ export function middleware(request: NextRequest) {
   }
 
   return NextResponse.next();
-}
+};
