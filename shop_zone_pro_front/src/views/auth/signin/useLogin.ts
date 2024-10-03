@@ -1,7 +1,6 @@
 import { useApi } from "@/hooks/useApi";
 import useForm, { IInputs } from "@/hooks/useForm";
 import {
-  IAuthResponse,
   ILoginResponse,
 } from "@/interfaces/user_response.interface";
 import { IUserFormSignIn } from "@/stores/user/user.interface";

@@ -177,7 +177,7 @@ const theme = createTheme({
       },
     },
     MuiSelect: {
-      defaultProps: {},
+      defaultProps: { variant: "standard" },
       styleOverrides: {
         root: {
           fontSize: "1rem",
@@ -196,14 +196,10 @@ const theme = createTheme({
             fontWeight: 400,
             fontSize: 16,
             lineHeight: "normal",
+            border: "none",
           },
           "& svg": {
             color: colors.secondary,
-          },
-          ":hover": {
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: colors.secondaryLight,
-            },
           },
         },
       },
