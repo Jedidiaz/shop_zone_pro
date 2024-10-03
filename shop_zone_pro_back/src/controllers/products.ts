@@ -107,7 +107,21 @@ const getAllProducts = async (__: Request, res: Response) => {
       ],
     });
 
-    res.status(200).json({ status: true, data: products });
+    const productsWithImages = await Promise.all(
+      products.map(async product => {
+        if(product.images) {
+          const image =  await FilesController.getBase64FromImage(
+            "product_images",
+            product.images[0]
+          );
+          
+          product.images = [image];
+          return product;
+        }
+      })
+    )
+    
+    res.status(200).json({ status: true, data: productsWithImages });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

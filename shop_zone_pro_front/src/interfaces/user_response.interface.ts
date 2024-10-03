@@ -15,3 +15,8 @@ export interface ILoginResponse extends BasicIResponse {
     token: string;
   };
 }
+
+export interface IChangePasswordForm {
+  password: string;
+  confirm_password: string;
+}

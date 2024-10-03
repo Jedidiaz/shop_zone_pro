@@ -138,7 +138,7 @@ async function saveImageFromBase64(
 async function getBase64FromImage(folder: string, name: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const privateDirectory = "private";
-    const imagePath = path.join(__dirname, "../../", privateDirectory, "/", folder, "/", name);
+    const imagePath = path.join(__dirname, "../", privateDirectory, "/", folder, "/", name);
     console.log(imagePath);
     fs.readFile(imagePath, (err, data) => {
       if (err) {

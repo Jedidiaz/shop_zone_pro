@@ -9,7 +9,7 @@ import { LoadingButton } from "@mui/lab";
 import useLogin from "./useLogin";
 
 const SignIn = (): JSX.Element => {
-  const { handleChange, handleSubmit, email, password } = useLogin();
+  const { handleChange, handleSubmit, email, password, loadingApi } = useLogin();
   return (
     <Container component="main">
       <Stack
@@ -61,6 +61,7 @@ const SignIn = (): JSX.Element => {
           sx={{ mt: 3 }}
           loadingPosition="start"
           type="submit"
+          loading={loadingApi.includes("POST__users/signin")}
         >
           Iniciar sesión
         </LoadingButton>

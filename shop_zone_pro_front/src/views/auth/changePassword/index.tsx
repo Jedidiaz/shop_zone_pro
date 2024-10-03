@@ -5,11 +5,12 @@ import Input from "@/components/forms/Input";
 import colors from "@/resources/colors";
 import { LoadingButton } from "@mui/lab";
 import MailRoundedIcon from "@mui/icons-material/MailRounded";
-import useRecoverPassword from "./useRecoverPassword";
+import useRecoverPassword from "../recoverPassword/useRecoverPassword";
+import useChangePassword from "./useChangePassword";
 
-const RecoverPassword = (): JSX.Element => {
-  const { email, handleChange, handleSubmit, loadingApi } =
-    useRecoverPassword();
+const ChangePassword = ({ token }: { token: string }): JSX.Element => {
+  const { confirm_password, password, handleChange, handleSubmit, loadingApi } =
+    useChangePassword(token);
   return (
     <Container component="main">
       <Stack
@@ -24,32 +25,41 @@ const RecoverPassword = (): JSX.Element => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h3" fontWeight={600} mb={-1}>
-          Recuperar contraseña
+          Cambiar contraseña
         </Typography>
         <Typography color={colors.textLight} lineHeight="normal" mb={1}>
-          Ingresa tu correo electrónico para recibir instrucciones sobre cómo
-          restaurar tu contraseña.
+          Ingresa una nueva contraseña para tu cuenta, no la pierdas de nuevo 👋
         </Typography>
         <Input
-          label="Email"
-          name="email"
-          type="email"
-          onChange={({ target }) => handleChange(target.value)}
-          value={email}
+          label="Nueva contraseña"
+          name="password"
+          type="password"
+          Icon
+          required
+          onChange={handleChange}
+          value={password}
+        />
+        <Input
+          label="Confirmar contraseña"
+          name="confirm_password"
+          type="password"
+          Icon
+          required
+          onChange={handleChange}
+          value={confirm_password}
         />
         <LoadingButton
           variant="contained"
-          startIcon={<MailRoundedIcon />}
           sx={{ mt: 3 }}
           loadingPosition="start"
           type="submit"
-          loading={loadingApi.includes("POST__users/recover-password")}
+          loading={loadingApi.includes("PUT__users/change-password")}
         >
-          Recuperar Contraseña
+          Cambiar
         </LoadingButton>
       </Stack>
     </Container>
   );
 };
 
-export default RecoverPassword;
+export default ChangePassword;

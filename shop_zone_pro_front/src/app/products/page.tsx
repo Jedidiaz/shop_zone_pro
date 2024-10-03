@@ -1,7 +1,9 @@
-import React from "react";
+import Products from "@/views/products";
+import { getSSRProducts } from "@/views/products/useProducts";
 
-const ProductsPage = () => {
-  return <div>Pagina de productos</div>;
+const ProductsPage = async () => {
+  const products = await getSSRProducts();
+  return <Products products={products} />;
 };
 
 export default ProductsPage;
