@@ -13,7 +13,7 @@ import Image from "next/image";
 import SelectCustom from "@/components/forms/SelectCustom";
 
 const style = {
-  position: "absolute" as "absolute",
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
