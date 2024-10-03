@@ -60,7 +60,7 @@ Requisitos Previos Node.js (versión >= 18) Next.js (versión 14) Base de datos 
 Clona el repositorio:
 
 ```bash
-git clone https://github.com/tuusuario/ShopZonePro.git
+git clone https://github.com/tuusuario/shop_zone_pro.git
 ```
 ### Navega al directorio del proyecto e instala las dependencias:
 
