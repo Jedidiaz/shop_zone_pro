@@ -35,13 +35,12 @@ router.post(
 );
 
 //get all products
-router.get("/", [validateJWT, validateFields], getAllProducts);
+router.get("/", [validateFields], getAllProducts);
 
 //get product by id
 router.get(
   "/:id",
   [
-    validateJWT,
     check("id", "El id del producto es obligatorio").notEmpty(),
     validateFields,
   ],

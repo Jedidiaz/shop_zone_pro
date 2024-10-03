@@ -13,13 +13,11 @@ const {
 } = categoryController;
 const router = Router();
 // get all categories
-router.get("/", [validateJWT, validateAdmin, validateFields], getAllCategories);
+router.get("/", [validateFields], getAllCategories);
 // get category by id
 router.get(
   "/:id",
   [
-    validateJWT,
-    validateAdmin,
     check("id", "El id es obligatorio").notEmpty(),
     validateFields,
   ],

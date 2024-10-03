@@ -22,7 +22,7 @@ const signUp = async (req: Request, res: Response) => {
 
     if (validateUser.status)
       return res
-        .status(validateUser.code)
+        .status(400)
         .json({ status: false, msg: validateUser.msg });
 
     const newPassword = await bcrypt.hash(password, 10);
