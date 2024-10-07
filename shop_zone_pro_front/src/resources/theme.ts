@@ -192,9 +192,9 @@ const theme = createTheme({
           "& .MuiOutlinedInput-notchedOutline": {
             border: "none",
           },
-          "& .MuiInputBase-input": {
+          "&.MuiInputBase-input": {
             fontWeight: 400,
-            fontSize: 16,
+            fontSize: 14,
             lineHeight: "normal",
             border: "none",
           },

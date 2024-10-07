@@ -1,7 +1,7 @@
 import { IProduct } from "@/interfaces/product_response.interface";
 import colors from "@/resources/colors";
 import { formatCurrency } from "@/resources/numberManager";
-import { Box, Rating, Stack, Typography } from "@mui/material";
+import { Rating, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useState } from "react";
@@ -30,6 +30,7 @@ const ProductCard = ({ product }: Props) => {
           loading="lazy"
           width={220}
           height={220}
+          style={{objectFit: "contain"}}
         />
       </Stack>
       <Stack

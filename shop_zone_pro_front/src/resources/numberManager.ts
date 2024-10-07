@@ -1,6 +1,6 @@
 export const formatCurrency = (value: number): string => {
   try {
-    const formattedValue = new Intl.NumberFormat("CO", {
+    const formattedValue = new Intl.NumberFormat("es-CO", {
       style: "decimal",
       currency: "COP",
       minimumFractionDigits: 0,

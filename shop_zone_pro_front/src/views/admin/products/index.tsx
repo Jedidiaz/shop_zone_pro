@@ -1,6 +1,16 @@
 "use client";
 import ProductTable from "@/components/forms/ProductTable";
-import { Button, Modal, Stack, styled, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Grow,
+  InputAdornment,
+  Modal,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import React from "react";
 import useProducts from "./useProducts";
@@ -11,6 +21,9 @@ import NumericFormatCustom from "@/components/forms/NumericFormat";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Image from "next/image";
 import SelectCustom from "@/components/forms/SelectCustom";
+import Link from "next/link";
+import SearchIcon from "@mui/icons-material/Search";
+import { filteredOptions } from "@/api/datasource";
 
 const style = {
   position: "absolute",
@@ -36,151 +49,38 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const Products = (): JSX.Element => {
-  const {
-    products,
-    openModal,
-    hanldeCloseModal,
-    hanldeOpenModal,
-    handleChange,
-    description,
-    image,
-    name,
-    price,
-    stock,
-    handleSubmit,
-    category,
-    categories,
-    handleDeleteProduct,
-  } = useProducts();
-  const router = useRouter();
-  const navigateToCategories = () => router.push("/admin/categories");
+  const { products, handleDeleteProduct } = useProducts();
 
   return (
     <>
       <Stack component="section" gap={2}>
+        <Grow in>
+          <Alert severity="info">
+            Para crear un producto debe de haber como minimo 1 categoria, si no
+            hay categorías creada, agrega{" "}
+            <Link href="/admin/categories/create-category">aquí</Link>
+          </Alert>
+        </Grow>
         <Stack direction="row" gap={2} justifyContent="flex-end">
-          <Button variant="text" onClick={navigateToCategories}>
-            Categorias
-          </Button>
-          <Button startIcon={<AddIcon />} onClick={hanldeOpenModal}>
-            Agregar Producto
-          </Button>
+          <Input
+            placeholder="Buscar..."
+            size="small"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon fontSize="small" />
+                </InputAdornment>
+              ),
+            }}
+          />
         </Stack>
-        <ProductTable
-          products={products}
-          handleDeleteProduct={handleDeleteProduct}
-        />
+        <Box sx={{ overflowX: "auto" }}>
+          <ProductTable
+            products={products}
+            handleDeleteProduct={handleDeleteProduct}
+          />
+        </Box>
       </Stack>
-      <Modal open={openModal} onClose={hanldeCloseModal}>
-        <Stack
-          component="form"
-          role="form"
-          spacing={2}
-          maxWidth={400}
-          p={2}
-          sx={style}
-          gap={1}
-          onSubmit={handleSubmit}
-        >
-          <Typography variant="h4" mb={2}>
-            Agregar nuevo producto
-          </Typography>
-          <Input
-            label="Titulo"
-            name="name"
-            onChange={handleChange}
-            value={name}
-            required
-          />
-          <Input
-            label="Precio"
-            InputProps={{
-              inputComponent: NumericFormatCustom as any,
-            }}
-            name="price"
-            onChange={handleChange}
-            value={price}
-            required
-          />
-          <Input
-            label="Stock"
-            InputProps={{
-              inputComponent: NumericFormatCustom as any,
-            }}
-            inputProps={{ isCurrency: false, prefix: "" }}
-            name="stock"
-            onChange={handleChange}
-            value={stock}
-            required
-          />
-          <Input
-            label="Descripcción"
-            name="description"
-            multiline
-            rows={4}
-            onChange={handleChange}
-            value={description}
-            required
-          />
-          <SelectCustom
-            options={category}
-            label="Categorias"
-            name="categories"
-            multiple
-            onChange={handleChange}
-            value={categories}
-            renderValue={(selected: unknown) => {
-              return (selected as Array<number>)
-                .map((cat) => {
-                  const categoryData = category.find(
-                    (item) => item?.value === cat
-                  );
-                  return categoryData?.label ?? "";
-                })
-                .join(", ");
-            }}
-            sx={{
-              "&.MuiInputBase-root": {
-                border: "none !important",
-              },
-            }}
-            required
-          />
-          <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
-          >
-            Subir imagen
-            <VisuallyHiddenInput
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleChange}
-            />
-          </Button>
-          {image?.url && (
-            <Stack alignItems="center">
-              <Image
-                src={image.url}
-                alt="new product image"
-                width={180}
-                height={180}
-                style={{ objectFit: "cover" }}
-                loading="lazy"
-              />
-            </Stack>
-          )}
-          <Stack direction="row" gap={2} justifyContent="flex-end">
-            <Button variant="text" onClick={hanldeCloseModal}>
-              Cancelar
-            </Button>
-            <Button type="submit">Crear</Button>
-          </Stack>
-        </Stack>
-      </Modal>
     </>
   );
 };

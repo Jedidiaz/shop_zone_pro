@@ -37,15 +37,18 @@ const SelectCustom = ({
   options,
   flex,
   multiple = false,
-  ...props
+  ...agrs
 }: SelectCustomProps) => {
+  const {size, variant, ...props} = agrs;
   return (
-    <FormControl fullWidth variant="standard" sx={{ flex: flex }}>
-      <InputLabel sx={{ color: colors.textPlaceholder }}>
+    <FormControl fullWidth size={size} variant={variant ?? "standard"} sx={{ flex: flex, m: 0 }}>
+      <InputLabel id={`${props.label}-${props.name}`} sx={{ color: colors.textPlaceholder }}>
         {props.label}
       </InputLabel>
       <Select
         {...props}
+        labelId={`${props.label}-${props.name}`}
+        variant={variant ?? "standard"}
         multiple={multiple}
         IconComponent={KeyboardArrowDownIcon}
       >

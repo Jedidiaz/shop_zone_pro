@@ -35,6 +35,7 @@ const Navbar = (): JSX.Element => {
   };
 
   const handleCloseSettings = () => setSettings(null);
+  const handleGoAdmin = () => router.push("/admin/products");
 
   const handleLogOut = () => {
     logOut();
@@ -83,6 +84,11 @@ const Navbar = (): JSX.Element => {
                 onClose={handleCloseSettings}
                 anchorEl={settings}
               >
+                {user.role === "admin" && (
+                  <MenuItem onClick={handleGoAdmin}>
+                    <ListItemText>Panel admin</ListItemText>
+                  </MenuItem>
+                )}
                 <MenuItem onClick={handleLogOut}>
                   <ListItemText sx={{ color: "red" }}>
                     Cerrar sesión
@@ -110,7 +116,7 @@ const Navbar = (): JSX.Element => {
           />
           <Input
             placeholder="Search"
-            sx={{ minWidth: 300 }}
+            sx={{ minWidth: 300, display: {xs: "none", sm: "initial"} }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
