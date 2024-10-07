@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 export const getProductById = async (productId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3200/api/products/${productId}`,
+      `${process.env.URL_BACK}products/${productId}`,
       { cache: "no-store" }
     );
     if (!response.ok) {

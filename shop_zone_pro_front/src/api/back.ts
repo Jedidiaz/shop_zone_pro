@@ -3,7 +3,8 @@ import axios, { AxiosError } from "axios";
 import { redirect } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 
-export const baseURL = "http://localhost:3200/api/";
+export const baseURL = "https://szpapi.jedidiazfagundez.com/api/";
+// export const baseURL = "http://localhost:3200/api/";
 
 const back = axios.create({
   baseURL,

@@ -4,18 +4,14 @@ import { IProduct } from "@/interfaces/product_response.interface";
 import colors from "@/resources/colors";
 import { formatCurrency } from "@/resources/numberManager";
 import {
-  Button,
   Chip,
   Container,
   Divider,
-  IconButton,
   Rating,
   Stack,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 interface Props {
   product: IProduct;
@@ -34,7 +30,7 @@ const ProductDetail = ({ product }: Props) => {
         alignItems: "center",
       }}
     >
-      <Stack component="picture" height={380} position="relative" flex={1}>
+      <Stack component="picture" minHeight={{xs: 350, sm: 380}} width="100%" position="relative" flex={1.5}>
         <Image
           src={images[0]}
           alt={`${name} image`}

@@ -19,6 +19,7 @@ const useManageCategory = () => {
         body: { name: category },
       });
       enqueueSnackbar(msg, { autoHideDuration: 3000, variant: "success" });
+      setCategory("");
     } catch (error) {
       console.log(error);
     }

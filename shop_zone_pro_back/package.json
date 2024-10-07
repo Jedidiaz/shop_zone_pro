@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --env-file=.env app.ts"
+    "dev": "ts-node-dev --respawn --env-file=.env app.ts",
+    "tsc": "tsc && bun copy-assets.ts",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",

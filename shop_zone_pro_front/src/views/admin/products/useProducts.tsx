@@ -5,11 +5,32 @@ import {
 } from "@/interfaces/product_response.interface";
 import { BasicIResponse } from "@/interfaces/user_response.interface";
 import { enqueueSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const useProducts = () => {
   const { loadApi, loadingApi } = useApi();
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [productsWithoutFilter, setProductsWithoutFilter] = useState<
+    IProduct[]
+  >([]);
+  let timeoutId: NodeJS.Timeout | string | number | undefined;
+
+  const handleFilterByName = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      if (!value.trim()) {
+        setProducts(productsWithoutFilter);
+        return;
+      }
+      setProducts(
+        productsWithoutFilter.filter((product) =>
+          product.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }, 300);
+  };
 
   const handleGetProducts = async () => {
     try {
@@ -18,6 +39,7 @@ const useProducts = () => {
         type: "GET",
       });
       setProducts(data.reverse());
+      setProductsWithoutFilter(data.reverse());
     } catch (error) {
       console.error(error);
     }
@@ -47,6 +69,7 @@ const useProducts = () => {
     loadingApi,
     products,
     handleDeleteProduct,
+    handleFilterByName,
   };
 };
 

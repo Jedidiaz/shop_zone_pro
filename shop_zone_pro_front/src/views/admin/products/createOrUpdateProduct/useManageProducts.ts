@@ -68,6 +68,7 @@ const useManageProducts = () => {
     const file = files[0];
     const b64 = await handleFile(file);
     onChange(e, "image", true);
+    setSelectedImage(b64?.url);
   };
 
   const handleDropChange = async (file: File) => {

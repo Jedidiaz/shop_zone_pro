@@ -14,7 +14,6 @@ import colors from "@/resources/colors";
 import Input from "@/components/forms/Input";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
-import { filteredOptions } from "@/api/datasource";
 
 const style = {
   position: "absolute",
@@ -27,20 +26,9 @@ const style = {
   bgcolor: colors.backgorund,
 };
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
 
 const Products = (): JSX.Element => {
-  const { products, handleDeleteProduct } = useProducts();
+  const { products, handleDeleteProduct, handleFilterByName } = useProducts();
 
   return (
     <>
@@ -63,6 +51,7 @@ const Products = (): JSX.Element => {
                 </InputAdornment>
               ),
             }}
+            onChange={handleFilterByName}
           />
         </Stack>
         <Box sx={{ overflowX: "auto" }}>

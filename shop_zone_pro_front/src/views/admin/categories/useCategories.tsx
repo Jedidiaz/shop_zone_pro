@@ -1,27 +1,34 @@
 import { useApi } from "@/hooks/useApi";
-import useForm, { IInputs } from "@/hooks/useForm";
 import {
-  CategoryOptions,
   ICategory,
   IGetCategoriesResponse,
 } from "@/interfaces/category_response.interface";
-import {
-  ICrateProductResponse,
-  IGetProductsResponse,
-  IProduct,
-  IProductForm,
-} from "@/interfaces/product_response.interface";
 import { BasicIResponse } from "@/interfaces/user_response.interface";
-import { SelectChangeEvent } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const useCategories = () => {
   const { loadApi, loadingApi } = useApi();
-  const [category, setCategory] = useState<string>("");
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const [categoriesWithoutFilter, setCategoriesWithoutFilter] = useState<ICategory[]>([]);
+  let timeoutId: NodeJS.Timeout | string | number | undefined;
 
-  const handleChange = (value: string) => setCategory(value);
+  const handleFilterByName = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      if (!value.trim()) {
+        setCategories(categoriesWithoutFilter);
+        return;
+      }
+      setCategories(
+        categoriesWithoutFilter.filter((category) =>
+          category.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }, 300);
+  };
 
   const handleGetCategories = async () => {
     try {
@@ -30,6 +37,7 @@ const useCategories = () => {
         type: "GET",
       });
       setCategories(data.reverse());
+      setCategoriesWithoutFilter(data.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -51,32 +59,15 @@ const useCategories = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!category.trim()) return
-    try {
-      const { msg } = await loadApi<ICrateProductResponse>({
-        endpoint: "categories/create",
-        type: "POST",
-        body: { name: category },
-      });
-      enqueueSnackbar(msg, { autoHideDuration: 3000, variant: "success" });
-      handleGetCategories();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     handleGetCategories();
   }, []);
 
   return {
     loadingApi,
-    category,
-    handleChange,
-    handleSubmit,
     handleDeleteCategory,
     categories,
+    handleFilterByName
   };
 };
 
