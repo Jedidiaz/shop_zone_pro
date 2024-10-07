@@ -108,19 +108,19 @@ const getAllProducts = async (__: Request, res: Response) => {
     });
 
     const productsWithImages = await Promise.all(
-      products.map(async product => {
-        if(product.images) {
-          const image =  await FilesController.getBase64FromImage(
+      products.map(async (product) => {
+        if (product.images) {
+          const image = await FilesController.getBase64FromImage(
             "product_images",
             product.images[0]
           );
-          
+
           product.images = [image];
           return product;
         }
       })
-    )
-    
+    );
+
     res.status(200).json({ status: true, data: productsWithImages });
   } catch (error) {
     console.log(error);
@@ -187,9 +187,18 @@ const getProductById = async (req: Request, res: Response) => {
         .status(404)
         .json({ status: false, msg: "Producto no encontrado :(" });
 
+    if (product.images) {
+      const image = await FilesController.getBase64FromImage(
+        "product_images",
+        product.images[0]
+      );
+
+      product.images = [image];
+    }
+
     res
       .status(200)
-      .json({ status: true, msg: "El producto se eliminó correctamente" });
+      .json({ status: true, product });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
