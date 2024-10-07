@@ -3,24 +3,15 @@ import ProductTable from "@/components/forms/ProductTable";
 import {
   Alert,
   Box,
-  Button,
   Grow,
   InputAdornment,
-  Modal,
   Stack,
   styled,
-  Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import React from "react";
 import useProducts from "./useProducts";
-import AddIcon from "@mui/icons-material/Add";
 import colors from "@/resources/colors";
 import Input from "@/components/forms/Input";
-import NumericFormatCustom from "@/components/forms/NumericFormat";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Image from "next/image";
-import SelectCustom from "@/components/forms/SelectCustom";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { filteredOptions } from "@/api/datasource";

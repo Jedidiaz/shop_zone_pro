@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
-import ProductCategory from "./product_category.model";
 
 const Products = db.define(
   "products",
@@ -43,9 +42,5 @@ const Products = db.define(
   { updatedAt: false }
 );
 
-Products.hasMany(ProductCategory, {
-  as: "products_categories",
-  foreignKey: "product_id",
-});
 
 export default Products;

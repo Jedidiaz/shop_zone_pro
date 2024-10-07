@@ -1,10 +1,9 @@
 "use client";
-import { Button, IconButton, Stack } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { InputAdornment, Stack } from "@mui/material";
 import CategoryTable from "@/components/forms/CategoryTable";
 import useCategories from "./useCategories";
 import Input from "@/components/forms/Input";
-import { LoadingButton } from "@mui/lab";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Categories = (): JSX.Element => {
   const {
@@ -16,24 +15,15 @@ const Categories = (): JSX.Element => {
     category,
   } = useCategories();
   return (
-    <Stack component="section" gap={2}>
-      <Stack direction="row" gap={2} justifyContent="flex-end">
-        <Button>Productos</Button>
-        <Stack direction="row" gap={2} alignItems="center">
-          <Input
-            label="Categoría"
-            placeholder="Crea una nueva categoría"
-            name="category"
-            onChange={(e) => handleChange(e.target.value)}
-            value={category}
-          />
-          <LoadingButton
-            onClick={handleSubmit}
-            loading={loadingApi.includes("POST__categories/create")}
-          >
-            <AddIcon color="primary" />
-          </LoadingButton>
-        </Stack>
+    <Stack component="section" gap={2} mt={2}>
+      <Stack alignItems="flex-end" >
+        <Input placeholder="Buscar categoría..." InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon fontSize="small" />
+                </InputAdornment>
+              ),
+            }} />
       </Stack>
       <CategoryTable
         categories={categories}

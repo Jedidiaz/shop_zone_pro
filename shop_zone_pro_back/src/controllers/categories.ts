@@ -60,7 +60,7 @@ const createCategory = async (req: Request, res: Response) => {
     );
     await transaction.commit();
 
-    res.status(201).json({
+    return res.status(201).json({
       status: true,
       data: newCategory,
       msg: "¡Categoría creada con éxito!",

@@ -13,17 +13,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Swal from "sweetalert2";
 import { ICategory } from "@/interfaces/category_response.interface";
 
-const header = [
-  "Id",
-  "Nombre",
-  "Fecha de creación",
-  "Eliminar",
-];
+const header = ["Id", "Nombre", "Fecha de creación", "Eliminar"];
 
 const TableCell = styled(TB)(() => ({
-  textAlign: "center",
+  textAlign: "start",
+  borderColor: "#F2F4F7",
 }));
-
 const CategoryTable = ({
   categories,
   handleDeleteProduct,
@@ -40,20 +35,30 @@ const CategoryTable = ({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
-    }).then(result => {
+    }).then((result) => {
       if (result.isConfirmed) {
         handleDeleteProduct(productId);
       }
-    })
-  }
+    });
+  };
 
   return (
     <Table>
       <TableHead sx={{ bgcolor: colors.borderColor }}>
-        <TableRow>
+        <TableRow sx={{ backgroundColor: "#F8F9FA" }}>
           {header.map((th, index) => (
-            <TableCell key={index} sx={{ py: 1.5, textAlign: "center" }}>
-              <Typography>{th}</Typography>
+            <TableCell
+              key={index}
+              sx={{
+                textAlign: header.length - 1 === index ? "end" : "start",
+                p: 1.4,
+                border: "none",
+                maxWidth: th === "Nombre" ? 350 : "100%",
+              }}
+            >
+              <Typography sx={{ textTransform: "uppercase" }} variant="body1">
+                {th}
+              </Typography>
             </TableCell>
           ))}
         </TableRow>
@@ -70,7 +75,7 @@ const CategoryTable = ({
                 month: "short",
               })}
             </TableCell>
-            <TableCell>
+            <TableCell sx={{textAlign: "end"}}>
               <IconButton onClick={() => handleDelete(id)}>
                 <DeleteOutlineIcon fontSize="small" color="error" />
               </IconButton>

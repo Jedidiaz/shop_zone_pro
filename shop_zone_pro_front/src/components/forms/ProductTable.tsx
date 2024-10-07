@@ -65,6 +65,7 @@ const ProductTable = ({
                 textAlign: header.length - 1 === index ? "end" : "start",
                 p: 1.4,
                 border: "none",
+                maxWidth: th === "Nombre" ? 350 : "100%"
               }}
             >
               <Typography sx={{ textTransform: "uppercase" }} variant="body1">
@@ -79,7 +80,7 @@ const ProductTable = ({
           ({ id, name, description, stock, price, createdAt, images }) => (
             <TableRow key={id}>
               <TableCell>{id}</TableCell>
-              <TableCell sx={{ minWidth: 350 }}>
+              <TableCell sx={{maxWidth: 350}} >
                 <Stack direction="row" gap={1} alignItems="center">
                   <Image
                     src={images[0]}

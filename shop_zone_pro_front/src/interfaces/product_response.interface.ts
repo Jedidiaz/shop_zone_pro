@@ -9,11 +9,12 @@ export interface IProduct {
   images: string[];
   createdAt?: string;
   status: boolean;
-  products_categories?: IProductCategory[];
+  categories: IProductCategory[];
 }
 
 export interface IProductCategory {
-  category_id: number;
+  id: number;
+  name: string;
 }
 
 export interface IGetProductsResponse extends BasicIResponse {
@@ -27,7 +28,7 @@ export interface ICrateProductResponse extends BasicIResponse {
 export interface IProductForm
   extends Omit<
     IProduct,
-    "id" | "createdAt" | "products_categories" | "status" | "images"
+    "id" | "createdAt" | "categories" | "status" | "images"
   > {
   categories: number[];
   image: undefined | { file: string; url: string; name: string };

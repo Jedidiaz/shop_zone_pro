@@ -75,7 +75,14 @@ const createProduct = async (req: Request, res: Response) => {
 
     const data = await ProductModel.findOne({
       where: { id: newProduct.id, status: true },
-      include: [{ model: ProductCategoryModel, as: "products_categories" }],
+      include: [
+        {
+          model: CategoryModel,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
+        },
+      ],
     });
 
     res.status(201).json({
@@ -100,9 +107,10 @@ const getAllProducts = async (__: Request, res: Response) => {
       where: { status: true },
       include: [
         {
-          model: ProductCategoryModel,
-          as: "products_categories",
-          attributes: ["category_id"],
+          model: CategoryModel,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
         },
       ],
     });
@@ -138,13 +146,6 @@ const deleteProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
     const product: any = await ProductModel.findOne({
       where: { status: true, id },
-      include: [
-        {
-          model: ProductCategoryModel,
-          as: "products_categories",
-          attributes: ["category_id"],
-        },
-      ],
     });
 
     if (!product)
@@ -156,7 +157,7 @@ const deleteProduct = async (req: Request, res: Response) => {
     await product.save({ transaction });
     await transaction.commit();
 
-    res.status(200).json({ status: true, data: product });
+    res.status(200).json({ status: true, msg: "El producto se borró correctamente!" });
   } catch (error) {
     console.log(error);
     await transaction.rollback();
@@ -175,9 +176,10 @@ const getProductById = async (req: Request, res: Response) => {
       where: { status: true, id },
       include: [
         {
-          model: ProductCategoryModel,
-          as: "products_categories",
-          attributes: ["category_id"],
+          model: CategoryModel,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
         },
       ],
     });

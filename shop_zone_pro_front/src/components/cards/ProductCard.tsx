@@ -5,6 +5,7 @@ import { Rating, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   product: IProduct;
@@ -12,6 +13,9 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
+  const handleGoDetails = () => router.push(`/products/${product.id}`);
+
   return (
     <Stack
       component="article"
@@ -21,7 +25,8 @@ const ProductCard = ({ product }: Props) => {
       border={`1.5px solid ${isHovered ? colors.primary : colors.borderColor}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      sx={{transition: "all .2s ease-out", boxShadow: isHovered ? "0px 0px 12px 0px #20B52652" : "initial"}}
+      sx={{transition: "all .2s ease-out", boxShadow: isHovered ? "0px 0px 12px 0px #20B52652" : "initial", cursor: "pointer"}}
+      onClick={handleGoDetails}
     >
       <Stack justifyContent="center" alignItems="center" component="picture">
         <Image
