@@ -11,7 +11,7 @@ const useCategories = () => {
   const { loadApi, loadingApi } = useApi();
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [categoriesWithoutFilter, setCategoriesWithoutFilter] = useState<ICategory[]>([]);
-  let timeoutId: NodeJS.Timeout | string | number | undefined;
+  let timeoutId: any
 
   const handleFilterByName = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;

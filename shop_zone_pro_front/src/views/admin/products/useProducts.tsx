@@ -13,7 +13,7 @@ const useProducts = () => {
   const [productsWithoutFilter, setProductsWithoutFilter] = useState<
     IProduct[]
   >([]);
-  let timeoutId: NodeJS.Timeout | string | number | undefined;
+  let timeoutId: any;
 
   const handleFilterByName = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
