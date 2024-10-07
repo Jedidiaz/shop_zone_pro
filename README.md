@@ -77,6 +77,15 @@ cd .. & cd shop_zone_pro_back & npm install
 ``` 
 Agrega el archivo `.env` en la raiz del fichero del backend `/shop_zone_pro_back/.env` y reemplaza las variables de entorno de la base de datos por las de tu DB.
 
+Agrega el archivo `.env` en la raiz del fichero del front `/shop_zone_pro_front/.env` La unica variable de entorno que toma es `URL_BACK` ejemplo: 
+```
+URL_BACK=http//localhost:3200/api/
+```
+
+#### ¡Importante¡ la variable debe de terminar en `api/`
+
+#### Nota: si deseas cambiar la URL del backend debes de hacerlo en el .env y en el archivo que está en `/src/api/back.ts/`.  
+
 #### Ahora ejecutar el backend y front en modo dev
 
 ```bash
@@ -104,4 +113,13 @@ Este se levanta en el puerto [`3200`](http://localhost:3200).
 - /change-password
 - /admin
 - /admin/products
+- /admin/products/create-product
 - /admin/categories
+- /admin/categories/create-category
+
+### Este proyecto está realizado con las tecnologias de  
+Backend: Node.js,  express, jwt, express validator, mariadb, sequelize. 
+
+Frontend: Next.js v14.2, typescript, react, zustand para el manejo de estados, middleware de next para la protección de ruas, lo podrás encontrar en el archivo `src/middleware.ts`.
+
+Por ultimo aquí si quieres probar la aplicación está desplegada en [`szp.jedidiazfagundez.com`](https://szp.jedidiazfagundez.com)
